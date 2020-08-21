@@ -1,6 +1,5 @@
-# Movie Search App Built With Open Movie DB API
+# Movie Search App Built With The Movie Database API
 
 * React
 * Axios
 * API consumption
-* 2 hour build

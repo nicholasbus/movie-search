@@ -16,7 +16,7 @@ function App() {
   
   // RUN THIS (useEffect) EVERY TIME THE movieInfo STATE IS UPDATED (INCLUDING AT INITIALIZATION)
   useEffect(() => {
-    movieInfo.Title ? setShowMovieCard(true) : setShowMovieCard(false);
+    movieInfo.length === 20 ? setShowMovieCard(true) : setShowMovieCard(false);
   }, [movieInfo])
 
   const handlechange = (event) => {
@@ -26,10 +26,10 @@ function App() {
   const handleSubmit = () => {
     axios({
       method: 'get',
-      url: `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&t=${queryInput}`,
+      url: `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1&include_adult=false&query=${queryInput}`
     })
     .then(res => {
-      setMovieInfo(res.data)
+      setMovieInfo(res.data.results)
     })
     .catch(err => console.log(err))
 
@@ -61,19 +61,40 @@ function App() {
       {
         showMovieCard ? (
           <Row>
-          <Col lg={4}></Col>
             <Col lg={4}>
               <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={movieInfo.Poster} />
+                <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${movieInfo[0].poster_path}`} />
                 <Card.Body>
-                  <Card.Title>{movieInfo.Title}</Card.Title>
+                  <Card.Title>{movieInfo[0].title}</Card.Title>
                   <Card.Text>
-                    {movieInfo.Plot}
+                    {movieInfo[0].overview}
                   </Card.Text>
                 </Card.Body>
               </Card>
             </Col>
-            <Col lg={4}></Col>
+            <Col lg={4}>
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${movieInfo[1].poster_path}`} />
+                <Card.Body>
+                  <Card.Title>{movieInfo[1].title}</Card.Title>
+                  <Card.Text>
+                    {movieInfo[1].overview}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col lg={4}>
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${movieInfo[2].poster_path}`} />
+                <Card.Body>
+                  <Card.Title>{movieInfo[2].title}</Card.Title>
+                  <Card.Text>
+                    {movieInfo[2].overview}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+            
           </Row>
         ) : null
       }
