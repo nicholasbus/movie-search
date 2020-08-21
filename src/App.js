@@ -26,7 +26,7 @@ function App() {
   const handleSubmit = () => {
     axios({
       method: 'get',
-      url: `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&t=${queryInput}`,
+      url: `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&t=${queryInput}`,
     })
     .then(res => {
       setMovieInfo(res.data)
